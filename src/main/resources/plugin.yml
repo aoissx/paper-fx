@@ -1,0 +1,4 @@
+name: paper-fx
+version: '${version}'
+main: net.aoissx.mc.paperfx.Paper_fx
+api-version: '1.20'
