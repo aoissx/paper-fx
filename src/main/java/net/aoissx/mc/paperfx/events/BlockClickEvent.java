@@ -1,4 +1,7 @@
 package net.aoissx.mc.paperfx.events;
 
-public class BlockClickEvent {
+import org.bukkit.event.Listener;
+
+public class BlockClickEvent implements Listener {
+
 }
