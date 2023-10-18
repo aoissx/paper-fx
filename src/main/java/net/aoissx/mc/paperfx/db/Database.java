@@ -1,9 +1,6 @@
 package net.aoissx.mc.paperfx.db;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Database {
     private String path = "jdbc:sqlite:plugins/paper-fx/fx.db";
@@ -21,9 +18,20 @@ public class Database {
                 "world_name TEXT" +
                 ");";
 
+        String priceSql = "CREATE TABLE IF NOT EXISTS PaperFxPrice(" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "price INTEGER" +
+                ");";
+
+        String initInsertSql = "INSERT INTO PaperFxPrice(price) VALUES(?);";
+
         try(Connection con = DriverManager.getConnection(getPath());
-            Statement stmt = con.createStatement()){
+            Statement stmt = con.createStatement();){
             stmt.execute(chestSql);
+            stmt.execute(priceSql);
+
+            // TODO:ここにpriceテーブルの行数をカウントして０の場合のみ初期データをインサートする処理を追加
+
         }catch(SQLException e){
             e.printStackTrace();
         }
