@@ -30,7 +30,21 @@ public class Database {
             stmt.execute(chestSql);
             stmt.execute(priceSql);
 
-            // TODO:ここにpriceテーブルの行数をカウントして０の場合のみ初期データをインサートする処理を追加
+            // Priceテーブルの行数を検索
+            String countSql = "SELECT COUNT(*) FROM PaperFxPrice;";
+            PreparedStatement countStmt = con.prepareStatement(countSql);
+            ResultSet countRs = countStmt.executeQuery();
+            int count = countRs.getInt(1);
+            if(count == 0){
+                // 初期データをインサート
+                PreparedStatement initInsertStmt = con.prepareStatement(initInsertSql);
+                int defaultPrice = 10;
+                initInsertStmt.setInt(1, defaultPrice);
+                initInsertStmt.executeUpdate();
+                initInsertStmt.close();
+            }
+            countRs.close();
+            countStmt.close();
 
         }catch(SQLException e){
             e.printStackTrace();
