@@ -121,17 +121,27 @@ public class BlockClickEvent implements Listener {
 
         if(slot == Config.SELL_BUTTON){
             // 売却処理
-            
-            // プレイヤーインベントリにFXがあるか確認する。
             ItemStack fx = new ItemStack(Config.FX_MATERIAL);
-            int fxCount = playerInv.all(fx).size();
-            if(fxCount == 0){
-                player.sendMessage(Config.FxLogError("FX商品がありません"));
-                return;
+
+            // プレイヤーインベントリにFXがあるか確認する。
+            boolean hasFx = false;
+            ItemStack[] items = playerInv.getContents();
+            for(ItemStack item : items){
+                if(item == null){
+                    continue;
+                }
+                if(item.getType() == Config.FX_MATERIAL){
+                    // プレイヤーインベントリからFXを一つ減らす
+                    hasFx = true;
+                    playerInv.removeItem(fx);
+                    break;
+                }
             }
 
-            // プレイヤーインベントリからFXを一つ減らす
-            playerInv.removeItem(fx);
+            if(!hasFx){
+                player.sendMessage(Config.FxLogError("FXがありません"));
+                return;
+            }
 
             // レベルを増やす
             player.setLevel(level + price);
