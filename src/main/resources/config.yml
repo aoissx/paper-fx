@@ -8,4 +8,4 @@ max: 50
 # 価格の変動範囲
 range: 10
 # 価格の変動間隔(秒)
-interval: 60
+interval: 300
