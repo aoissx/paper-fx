@@ -14,6 +14,7 @@ public class Config {
     public static final int BUY_BUTTON = 12;
     public static final int SELL_BUTTON = 15;
     public static final int PRICE_SLOT = 0;
+    public static final int LEVEL_SLOT = 9;
 
     public static final Material FX_MATERIAL = Material.DIAMOND_BLOCK;
     public static final Material FX_PAPER = Material.PAPER;

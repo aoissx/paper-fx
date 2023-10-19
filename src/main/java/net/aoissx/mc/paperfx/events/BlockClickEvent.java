@@ -100,6 +100,7 @@ public class BlockClickEvent implements Listener {
         Set<String> tags = player.getScoreboardTags();
 
         if(tags.contains(Config.UsingTag)){
+            // player.sendMessage(Config.FxLogError("FX中はインベントリを操作できません"));
             e.setCancelled(true);
         }else{
             return;
@@ -159,6 +160,8 @@ public class BlockClickEvent implements Listener {
             playerInv.addItem(fx);
             
             player.sendMessage(Config.FxLog("買いました"));
+        }else{
+            return;
         }
 
         // 価格を更新する。
@@ -169,7 +172,7 @@ public class BlockClickEvent implements Listener {
         ItemStack item = new ItemStack(Config.FX_PAPER);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("§a§l現在の価格");
-        meta.setLore(Collections.singletonList("§a§l" + newPrice));
+        meta.setLore(Collections.singletonList(String.valueOf(newPrice)));
         item.setItemMeta(meta);
         inv.setItem(Config.PRICE_SLOT, item);
         
@@ -179,24 +182,24 @@ public class BlockClickEvent implements Listener {
         gui.setLevel(inv, newLevel);
 
         // サウンドを鳴らす。
-        Location loc = player.getLocation();
-        float volume = 1f;
-        float pitch = 1f;
-        loc.getWorld().playSound(loc, Sound.BLOCK_ANVIL_USE, volume, pitch);
+        // Location loc = player.getLocation();
+        // float volume = 1f;
+        // float pitch = 1f;
+        // loc.getWorld().playSound(loc, Sound.BLOCK_ANVIL_USE, volume, pitch);
         
     }
 
     /*
      * アイテム移動をキャンセルする。
      */
-    @EventHandler
-    public void inventoryMoveEvent(InventoryMoveItemEvent e){
-        Player player = (Player) e.getDestination().getHolder();
-        Set<String> tags = player.getScoreboardTags();
-        if(tags.contains(Config.UsingTag)){
-            e.setCancelled(true);
-        }
-    }
+    // @EventHandler
+    // public void inventoryMoveEvent(InventoryMoveItemEvent e){
+    //     Player player = (Player) e.getDestination().getHolder();
+    //     Set<String> tags = player.getScoreboardTags();
+    //     if(tags.contains(Config.UsingTag)){
+    //         e.setCancelled(true);
+    //     }
+    // }
 
     /*
      * インベントリを閉じたときに、FXを終了する。
@@ -211,13 +214,13 @@ public class BlockClickEvent implements Listener {
         }
     }
 
-    @EventHandler
-    public void onInventoryInteractEvent(InventoryInteractEvent e){
-        Player player = (Player) e.getWhoClicked();
-        Set<String> tags = player.getScoreboardTags();
-        if(tags.contains(Config.UsingTag)){
-            e.setCancelled(true);
-        }
-    }
+    // @EventHandler
+    // public void onInventoryInteractEvent(InventoryInteractEvent e){
+    //     Player player = (Player) e.getWhoClicked();
+    //     Set<String> tags = player.getScoreboardTags();
+    //     if(tags.contains(Config.UsingTag)){
+    //         e.setCancelled(true);
+    //     }
+    // }
 
 }

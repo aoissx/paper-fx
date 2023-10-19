@@ -40,6 +40,10 @@ public class Gui {
      */
     private Inventory fillChest(Inventory inv){
         ItemStack item = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(" ");
+        item.setItemMeta(meta);
+
         int size = inv.getSize();
         for(int i = 0; i < size; i++){
             inv.setItem(i, item);
@@ -72,7 +76,7 @@ public class Gui {
         ItemStack item = new ItemStack(Config.FX_PAPER);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("§a§l現在の価格");
-        meta.setLore(Collections.singletonList("§a§l" + price));
+        meta.setLore(Collections.singletonList(String.valueOf(price)));
         item.setItemMeta(meta);
         inv.setItem(Config.PRICE_SLOT, item);
         return inv;
@@ -85,8 +89,8 @@ public class Gui {
         ItemStack item = new ItemStack(Config.FX_LEVEL);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("§a§l現在のレベル");
-        meta.setLore(Collections.singletonList("§a§l" + level));
+        meta.setLore(Collections.singletonList(String.valueOf(level)));
         item.setItemMeta(meta);
-        inv.setItem(4, item);
+        inv.setItem(Config.LEVEL_SLOT, item);
     }
 }
