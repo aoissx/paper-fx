@@ -9,7 +9,7 @@ public class Database {
         return this.path;
     }
 
-    public void Init(){
+    public void Init(int defaultPrice){
         String chestSql = "CREATE TABLE IF NOT EXISTS PaperFxChest(" +
                 "chestId INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "x INTEGER," +
@@ -20,7 +20,8 @@ public class Database {
 
         String priceSql = "CREATE TABLE IF NOT EXISTS PaperFxPrice(" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "price INTEGER" +
+                "price INTEGER," +
+                "created_at TEXT NOT NULL DEFAULT (DATETIME('now', 'localtime'))"+
                 ");";
 
         String initInsertSql = "INSERT INTO PaperFxPrice(price) VALUES(?);";
@@ -38,7 +39,6 @@ public class Database {
             if(count == 0){
                 // 初期データをインサート
                 PreparedStatement initInsertStmt = con.prepareStatement(initInsertSql);
-                int defaultPrice = 10;
                 initInsertStmt.setInt(1, defaultPrice);
                 initInsertStmt.executeUpdate();
                 initInsertStmt.close();
