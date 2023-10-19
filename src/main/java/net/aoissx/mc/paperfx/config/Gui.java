@@ -60,8 +60,8 @@ public class Gui {
         sellmeta.setDisplayName("§a§l売る");
         sell.setItemMeta(sellmeta);
 
-        inv.setItem(12, buy);
-        inv.setItem(15, sell);
+        inv.setItem(Config.BUY_BUTTON, buy);
+        inv.setItem(Config.SELL_BUTTON, sell);
         return inv;
     }
 
@@ -69,12 +69,24 @@ public class Gui {
      * 現在の価格を表示する。
      */
     private Inventory setPrice(Inventory inv, int price) {
-        ItemStack item = new ItemStack(Material.PAPER);
+        ItemStack item = new ItemStack(Config.FX_PAPER);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("§a§l現在の価格");
         meta.setLore(Collections.singletonList("§a§l" + price));
         item.setItemMeta(meta);
-        inv.setItem(13, item);
+        inv.setItem(Config.PRICE_SLOT, item);
         return inv;
+    }
+
+    /*
+     * プレイヤーのレベルを表示する。
+     */
+    public void setLevel(Inventory inv, int level){
+        ItemStack item = new ItemStack(Config.FX_LEVEL);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName("§a§l現在のレベル");
+        meta.setLore(Collections.singletonList("§a§l" + level));
+        item.setItemMeta(meta);
+        inv.setItem(4, item);
     }
 }
