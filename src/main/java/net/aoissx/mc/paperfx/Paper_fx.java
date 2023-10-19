@@ -13,6 +13,10 @@ public final class Paper_fx extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
+        getLogger().info("PaperFX is enabled.");
+        // config.yamlを作成
+        saveDefaultConfig();
+
         // Database
         Database db = new Database();
         db.Init();

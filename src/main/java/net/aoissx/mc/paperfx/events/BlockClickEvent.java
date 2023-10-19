@@ -83,6 +83,14 @@ public class BlockClickEvent implements Listener {
                 float pitch = 1f;
                 loc.getWorld().playSound(loc, Sound.BLOCK_ANVIL_USE, volume, pitch);
             }
+        }else{
+            Set<String> tags = player.getScoreboardTags();
+            if(tags.contains(Config.AddTag)){
+                chestDao.insert(chest);
+                player.sendMessage("§a§l[PaperFX] §r§aチェストを登録しました");
+            }else if(tags.contains(Config.RemoveTag)){
+                player.sendMessage(Config.FxLogError("登録されていません"));
+            }
         }
     }
 
@@ -200,6 +208,15 @@ public class BlockClickEvent implements Listener {
         if(tags.contains(Config.UsingTag)){
             player.removeScoreboardTag(Config.UsingTag);
             player.sendMessage(Config.FxLog("FXを終了します"));
+        }
+    }
+
+    @EventHandler
+    public void onInventoryInteractEvent(InventoryInteractEvent e){
+        Player player = (Player) e.getWhoClicked();
+        Set<String> tags = player.getScoreboardTags();
+        if(tags.contains(Config.UsingTag)){
+            e.setCancelled(true);
         }
     }
 
